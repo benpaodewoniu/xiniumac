@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小技巧 - Xiniu Mac</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.8;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e8e8ed;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #86868b;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: #1d1d1f; }
+    nav a.active { color: #1d1d1f; }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #86868b;
+    }
+
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .tip-card h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tip-card .subtitle {
+      font-size: 0.85rem;
+      color: #86868b;
+      margin-bottom: 20px;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 40px;
+      padding-bottom: 20px;
+    }
+
+    .steps li:last-child { padding-bottom: 0; }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 26px;
+      height: 26px;
+      background: #0071e3;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .steps li strong {
+      font-weight: 600;
+    }
+
+    .warning {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: #fff3cd;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #856404;
+      border-left: 4px solid #ffc107;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #86868b;
+      font-size: 0.8rem;
+      border-top: 1px solid #e8e8ed;
+    }
+
+    @media (max-width: 680px) {
+      header h1 { font-size: 1.8rem; }
+      .tip-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">App 推荐</a>
+  <a href="tips.html" class="active">小技巧</a>
+</nav>
+
+<header>
+  <h1>小技巧</h1>
+  <p>一些实用的 Apple 相关技巧</p>
+</header>
+
+<div class="content">
+
+  <div class="tip-card">
+    <h2>如何申请美国 Apple 账号</h2>
+    <div class="subtitle">无需信用卡，无需代理，几分钟搞定</div>
+
+    <ol class="steps">
+      <li>找一部 <strong>安卓手机</strong>，下载 <strong>Apple Music</strong> App。</li>
+      <li>打开 Apple Music，点击创建 Apple 账户，国家/地区选择 <strong>"美国"</strong>。</li>
+      <li>找一台 Apple 设备（iPhone / iPad / Mac），先将<strong>语言和地区改为美国</strong>，然后登录刚才创建的账号即可。</li>
+    </ol>
+
+    <div class="warning">
+      <strong>注意：</strong>通过此方式注册的美国 Apple 账号<strong>无法用于申请美国 Apple 开发者账号</strong>（Apple Developer Program）。
+    </div>
+  </div>
+
+</div>
+
+<footer>Xiniu Mac &copy; 2026</footer>
+
+</body>
+</html>

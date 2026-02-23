@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xiniu Mac - 好用的 Mac App 推荐</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.5;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e8e8ed;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #86868b;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: #1d1d1f; }
+    nav a.active { color: #1d1d1f; }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #86868b;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 6px 18px;
+      border: 1px solid #d2d2d7;
+      border-radius: 20px;
+      background: #fff;
+      color: #1d1d1f;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: #0071e3; color: #0071e3; }
+    .filter-btn.active { background: #0071e3; color: #fff; border-color: #0071e3; }
+
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+    .card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      flex-shrink: 0;
+    }
+
+    .card-body { flex: 1; min-width: 0; }
+
+    .card-body h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-body .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: #86868b;
+      background: #f5f5f7;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .card-body p {
+      font-size: 0.85rem;
+      color: #6e6e73;
+      margin-bottom: 10px;
+    }
+
+    .card-body a {
+      font-size: 0.85rem;
+      color: #0071e3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .card-body a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #86868b;
+      font-size: 0.8rem;
+      border-top: 1px solid #e8e8ed;
+    }
+
+    @media (max-width: 680px) {
+      header h1 { font-size: 1.8rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="active">App 推荐</a>
+  <a href="tips.html">小技巧</a>
+</nav>
+
+<header>
+  <h1>Xiniu Mac</h1>
+  <p>我在用的 Mac App，分享给你</p>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">全部</button>
+  <button class="filter-btn" data-cat="efficiency">效率工具</button>
+  <button class="filter-btn" data-cat="dev">开发工具</button>
+  <button class="filter-btn" data-cat="network">网络工具</button>
+  <button class="filter-btn" data-cat="media">影音媒体</button>
+  <button class="filter-btn" data-cat="system">系统工具</button>
+</div>
+
+<div class="grid" id="app-grid"></div>
+
+<footer>Xiniu Mac &copy; 2026</footer>
+
+<script>
+const apps = [
+  // 效率工具
+  {
+    name: "Rectangle",
+    icon: "icons/rectangle.png",
+    cat: "efficiency",
+    desc: "开源免费的窗口管理工具，用快捷键快速调整窗口大小和位置。",
+    url: "https://rectangleapp.com"
+  },
+  {
+    name: "KeyClu",
+    icon: "icons/keyclu.png",
+    cat: "efficiency",
+    desc: "长按 Command 键即可查看当前 App 的所有快捷键，快速上手新软件。",
+    url: "https://sergii.tatarenkov.name/keyclu/support/"
+  },
+  {
+    name: "AirBattery",
+    icon: "icons/airbattery.png",
+    cat: "efficiency",
+    desc: "在菜单栏查看 AirPods、鼠标、键盘等所有设备的电量。",
+    url: "https://lihaoyun6.github.io/AirBattery/"
+  },
+  {
+    name: "NeverNap",
+    icon: "icons/nevernap.png",
+    cat: "efficiency",
+    desc: "防止 Mac 自动休眠，一键保持屏幕常亮。",
+    url: "https://apps.apple.com/app/nevernap/id6670744687"
+  },
+  {
+    name: "PortKiller",
+    icon: "icons/portkiller.png",
+    cat: "efficiency",
+    desc: "快速查找并杀掉占用指定端口的进程，开发调试好帮手。",
+    url: "https://portkiller.app"
+  },
+  {
+    name: "1Password",
+    icon: "icons/1password.png",
+    cat: "efficiency",
+    desc: "老牌密码管理器，安全存储和自动填充各类密码。",
+    url: "https://1password.com"
+  },
+
+  // 开发工具
+  {
+    name: "iTerm2",
+    icon: "icons/iterm.png",
+    cat: "dev",
+    desc: "macOS 上最强的终端模拟器，分屏、搜索、自动补全样样俱全。",
+    url: "https://iterm2.com"
+  },
+  {
+    name: "Sublime Text",
+    icon: "icons/sublimetext.png",
+    cat: "dev",
+    desc: "极速轻量的代码编辑器，启动快、插件丰富。",
+    url: "https://www.sublimetext.com"
+  },
+  {
+    name: "Claude",
+    icon: "icons/claude.png",
+    cat: "dev",
+    desc: "Anthropic 出品的 AI 助手客户端，编程、写作、分析样样行。",
+    url: "https://claude.ai"
+  },
+
+  // 网络工具
+  {
+    name: "Google Chrome",
+    icon: "icons/chrome.png",
+    cat: "network",
+    desc: "全球最流行的浏览器，扩展生态强大，开发者必备。",
+    url: "https://www.google.com/chrome/"
+  },
+  {
+    name: "Clash Verge",
+    icon: "icons/clashverge.png",
+    cat: "network",
+    desc: "基于 Clash Meta 的跨平台代理客户端，界面美观功能强大。",
+    url: "https://github.com/clash-verge-rev/clash-verge-rev"
+  },
+  {
+    name: "WireGuard",
+    icon: "icons/wireguard.png",
+    cat: "network",
+    desc: "新一代轻量 VPN 协议客户端，速度快、配置简单。",
+    url: "https://www.wireguard.com"
+  },
+  {
+    name: "Shadowrocket",
+    icon: "icons/shadowrocket.png",
+    cat: "network",
+    desc: "轻量代理工具，支持多种协议，配置灵活。",
+    url: "https://apps.apple.com/app/shadowrocket/id932747118"
+  },
+  {
+    name: "AdsPower",
+    icon: "icons/adspower.png",
+    cat: "network",
+    desc: "指纹浏览器，支持多账号防关联管理，适合跨境电商。",
+    url: "https://www.adspower.com"
+  },
+
+  // 影音媒体
+  {
+    name: "IINA",
+    icon: "icons/iina.png",
+    cat: "media",
+    desc: "macOS 上最好的开源视频播放器，原生界面，格式全支持。",
+    url: "https://iina.io"
+  },
+  {
+    name: "Openscreen",
+    icon: "icons/openscreen.png",
+    cat: "media",
+    desc: "简洁好用的屏幕录制工具，支持区域录制和系统音频。",
+    url: "https://apps.apple.com/app/openscreen/id6504571244"
+  },
+  {
+    name: "res-downloader",
+    icon: "icons/resdownloader.png",
+    cat: "media",
+    desc: "网络资源嗅探下载工具，轻松获取网页中的视频和图片。",
+    url: "https://github.com/putyy/res-downloader"
+  },
+
+  // 系统工具
+  {
+    name: "OnyX",
+    icon: "icons/onyx.png",
+    cat: "system",
+    desc: "老牌 macOS 系统维护工具，清理缓存、修复权限、调整隐藏设置。",
+    url: "https://www.titanium-software.fr/en/onyx.html"
+  },
+  {
+    name: "Deeper",
+    icon: "icons/deeper.png",
+    cat: "system",
+    desc: "调整 macOS 隐藏功能和参数，与 OnyX 同一开发者出品。",
+    url: "https://www.titanium-software.fr/en/deeper.html"
+  },
+  {
+    name: "The Unarchiver",
+    icon: "icons/unarchiver.png",
+    cat: "system",
+    desc: "免费的万能解压工具，支持 RAR、7z、ZIP 等几乎所有格式。",
+    url: "https://theunarchiver.com"
+  },
+  {
+    name: "MacDroid",
+    icon: "icons/macdroid.png",
+    cat: "system",
+    desc: "让 Mac 轻松连接 Android 手机传文件，支持 MTP 和 ADB。",
+    url: "https://www.macdroid.app"
+  },
+  {
+    name: "Transporter",
+    icon: "icons/transporter.png",
+    cat: "system",
+    desc: "Apple 官方工具，用于向 App Store Connect 上传 App 包。",
+    url: "https://apps.apple.com/app/transporter/id1450874784"
+  },
+  {
+    name: "Windows App",
+    icon: "icons/windowsapp.png",
+    cat: "system",
+    desc: "微软官方远程桌面客户端，从 Mac 连接 Windows PC。",
+    url: "https://apps.apple.com/app/windows-app/id1295203466"
+  },
+];
+
+const grid = document.getElementById("app-grid");
+const buttons = document.querySelectorAll(".filter-btn");
+
+function render(cat) {
+  grid.innerHTML = "";
+  const list = cat === "all" ? apps : apps.filter(a => a.cat === cat);
+  list.forEach(app => {
+    if (app.hidden) return;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.cat = app.cat;
+
+    const catLabels = {
+      efficiency: "效率工具", dev: "开发工具", network: "网络工具",
+      media: "影音媒体", system: "系统工具"
+    };
+
+    card.innerHTML = `
+      <img src="${app.icon}" alt="${app.name}" loading="lazy">
+      <div class="card-body">
+        <h3>${app.name}</h3>
+        <span class="tag">${catLabels[app.cat]}</span>
+        <p>${app.desc}</p>
+        <a href="${app.url}" target="_blank" rel="noopener">获取 &rarr;</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    render(btn.dataset.cat);
+  });
+});
+
+render("all");
+</script>
+
+</body>
+</html>
